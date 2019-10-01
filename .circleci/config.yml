@@ -2,13 +2,10 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/buildpack-deps:jessie
+      - image: google/cloud-sdk
 
     steps:
-      - checkout
-      - run:
-          command: wget https://storage.googleapis.com/jbd-releases/gcp-connectivitytests-0.0.1 && chmod +x ./gcp-connectivitytests-0.0.1
-      - run:
-          command: # decrypt
-      - run:
-          command: GOOGLE_APPLICATION_CREDENTIALS=key.json ./gcp-connectivitytests-0.0.1 -project=computelabs
+      - run: |
+          echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account --key-file=-
+          wget https://storage.googleapis.com/jbd-releases/gcp-connectivitytests-0.0.1 && chmod +x ./gcp-connectivitytests-0.0.1
+          ./gcp-connectivitytests-0.0.1 -project=computelabs
