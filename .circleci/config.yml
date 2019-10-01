@@ -6,6 +6,7 @@ jobs:
 
     steps:
       - run: |
+          apt-get install wget -y
           echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account --key-file=-
           wget https://storage.googleapis.com/jbd-releases/gcp-connectivitytests-0.0.1 && chmod +x ./gcp-connectivitytests-0.0.1
           ./gcp-connectivitytests-0.0.1 -project=computelabs
