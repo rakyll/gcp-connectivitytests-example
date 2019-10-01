@@ -1,16 +1,12 @@
-# Download a service key account from Google Cloud Console.
-# Encrypt it and put it to repo:
-#     $ travis encrypt-file key.json
-
 branches:
-  only: 
+  only:
     - master
 
-install:
- - wget https://storage.googleapis.com/jbd-releases/gcp-connectivitytests-0.0.1 && chmod +x ./gcp-connectivitytests-0.0.1
+before_install:
+ - openssl aes-256-cbc -K $encrypted_e53f4ef918d8_key -iv $encrypted_e53f4ef918d8_iv -in key.json.enc -out key.json -d
 
-# Build the website
+install:
+ - wget https://storage.googleapis.com/jbd-releases/gcp-connectivitytests-0.0.1-linuxamd64 && chmod +x ./gcp-connectivitytests-0.0.1-linuxamd64
+
 script:
- - echo $GCLOUD_SERVICE_KEY > key.json
- - cat key.json
- - GOOGLE_APPLICATION_CREDENTIALS=key.json ./gcp-connectivitytests-0.0.1 -project=computelabs
+ - GOOGLE_APPLICATION_CREDENTIALS=key.json ./gcp-connectivitytests-0.0.1-linuxamd64 -project=computelabs

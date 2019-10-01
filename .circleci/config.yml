@@ -7,6 +7,6 @@ jobs:
     steps:
       - run: |
           apt-get install wget -y
+          wget https://storage.googleapis.com/jbd-releases/gcp-connectivitytests-0.0.1-linuxamd64 && chmod +x ./gcp-connectivitytests-0.0.1-linuxamd64
           echo $GCLOUD_SERVICE_KEY > key.json
-          wget https://storage.googleapis.com/jbd-releases/gcp-connectivitytests-0.0.1 && chmod +x ./gcp-connectivitytests-0.0.1
-          GOOGLE_APPLICATION_CREDENTIALS=key.json ./gcp-connectivitytests-0.0.1 -project=computelabs
+          GOOGLE_APPLICATION_CREDENTIALS=key.json ./gcp-connectivitytests-0.0.1-linuxamd64 -project=computelabs
