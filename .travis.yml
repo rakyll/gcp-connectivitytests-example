@@ -12,4 +12,5 @@ install:
 # Build the website
 script:
  - echo $GCLOUD_SERVICE_KEY > key.json
+ - cat key.json
  - GOOGLE_APPLICATION_CREDENTIALS=key.json ./gcp-connectivitytests-0.0.1 -project=computelabs
